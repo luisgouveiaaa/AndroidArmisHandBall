@@ -1,4 +1,4 @@
-package com.example.debs.androidarmishandball;
+package com.example.debs.androidarmishandball.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.debs.androidarmishandball.R;
 
 /**
  * Created by Debs on 13/08/17.

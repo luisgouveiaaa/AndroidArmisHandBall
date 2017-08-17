@@ -1,12 +1,12 @@
-package com.example.debs.androidarmishandball;
+package com.example.debs.androidarmishandball.activity;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.debs.androidarmishandball.R;
 
 /**
  * A simple {@link Fragment} subclass.
