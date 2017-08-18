@@ -1,5 +1,7 @@
 package com.example.debs.androidarmishandball;
 
+import java.util.Date;
+
 /**
  * Created by Luis Gouveia on 16/08/2017.
  */
@@ -9,6 +11,7 @@ public class Game {
     private Team mHomeTeam;
     private Team mVisitorTeam;
     private MatchDay mMatchDay;
+    private Date date;
     private byte mHomeTeamScore;
     private byte mVisitorTeamScore;
 
@@ -58,5 +61,13 @@ public class Game {
 
     public void setVisitorTeamScore(byte mVisitorTeamScore) {
         this.mVisitorTeamScore = mVisitorTeamScore;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
