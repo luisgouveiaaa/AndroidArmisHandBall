@@ -1,5 +1,7 @@
 package com.example.debs.androidarmishandball;
 
+import android.support.annotation.Nullable;
+
 import java.util.Date;
 
 /**
@@ -8,42 +10,48 @@ import java.util.Date;
 
 public class Game {
 
-    private Team mHomeTeam;
-    private Team mVisitorTeam;
-    private MatchDay mMatchDay;
-    private Date date;
+    private int pk;
+    private String mHomeTeam;
+    private String mVisitorTeam;
+    private String mMatchDay;
+    private String date;
     private byte mHomeTeamScore;
     private byte mVisitorTeamScore;
 
-    public Game(Team mHomeTeam, Team mVisitorTeam, MatchDay mMatchDay, byte mHomeTeamScore, byte mVisitorTeamScore) {
-        this.mHomeTeam = mHomeTeam;
-        this.mVisitorTeam = mVisitorTeam;
-        this.mMatchDay = mMatchDay;
-        this.mHomeTeamScore = mHomeTeamScore;
-        this.mVisitorTeamScore = mVisitorTeamScore;
+    public Game(int pk, String matchDay,String visitorClubLogo,String homeClubLogo,
+                String visitorClubName, String homeClubName, byte visitorTeamResult,
+                 byte homeTeamResult, int visitorTeamPk, int homeTeamPk, String date) {
+        this.pk = pk;
+        this.mHomeTeam = homeClubName;
+        this.mVisitorTeam = visitorClubName;
+        this.mMatchDay = matchDay;
+        this.mHomeTeamScore = homeTeamResult;
+        this.mVisitorTeamScore = visitorTeamResult;
+        this.date = date;
+
     }
 
-    public Team getHomeTeam() {
+    public String getHomeTeam() {
         return mHomeTeam;
     }
 
-    public void setHomeTeam(Team mHomeTeam) {
+    public void setHomeTeam(String mHomeTeam) {
         this.mHomeTeam = mHomeTeam;
     }
 
-    public Team getVisitorTeam() {
+    public String getVisitorTeam() {
         return mVisitorTeam;
     }
 
-    public void setVisitorTeam(Team mVisitorTeam) {
+    public void setVisitorTeam(String mVisitorTeam) {
         this.mVisitorTeam = mVisitorTeam;
     }
 
-    public MatchDay getMatchDay() {
+    public String getMatchDay() {
         return mMatchDay;
     }
 
-    public void setMatchDay(MatchDay mMatchDay) {
+    public void setMatchDay(String mMatchDay) {
         this.mMatchDay = mMatchDay;
     }
 
@@ -63,11 +71,11 @@ public class Game {
         this.mVisitorTeamScore = mVisitorTeamScore;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

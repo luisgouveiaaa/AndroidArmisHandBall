@@ -7,11 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
     <SearchView
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/game_card"
-        android:layout_margin="5dp"
-        android:elevation="6dp">
-
+        android:elevation="4dp">
     </SearchView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_results_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
+
+    </android.support.v7.widget.RecyclerView>
+
 </LinearLayout>

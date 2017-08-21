@@ -11,17 +11,31 @@ import android.view.ViewGroup;
 
 import com.example.debs.androidarmishandball.Game;
 import com.example.debs.androidarmishandball.R;
+import com.example.debs.androidarmishandball.restclient.AppSession;
+import com.example.debs.androidarmishandball.restclient.RestProperties;
+import com.example.debs.androidarmishandball.adapter.GameAdapter;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
+ * {@link HomeFragment} interface
  * to handle interaction events.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
 
+
+    private View rootView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -47,53 +61,45 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        rootView =  inflater.inflate(R.layout.fragment_home, container, false);
+
+        new HttpRequestTask().execute();
+        return rootView;
     }
 
     private class HttpRequestTask extends AsyncTask<Void, Void, Game[]> {
+
         @Override
         protected Game[] doInBackground(Void... params) {
             RestProperties webProperties = new RestProperties(HomeFragment.this.getContext());
             final UriComponents uri = UriComponentsBuilder.newInstance().scheme(webProperties.getScheme())
-                    .host(webProperties.getHost()).port(webProperties.getPort()).path(webProperties.getUsersUri() + "/"
-                            + AppSession.loggedUser.getUsername() + webProperties.getTimeslotsUri() + "/all"
-                    ).build();
+                    .host(webProperties.getHost()).path(webProperties.getApiServerUri() + webProperties.getGamesUri()).build();
 
             HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.AUTHORIZATION, "Basic " + AppSession.getEncondedUserCredentials());
 
-            HttpEntity<TimeSlotDTO[]> request = new HttpEntity<>(headers);
+            HttpEntity<Game[]> request = new HttpEntity<>(headers);
 
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            ResponseEntity<TimeSlotDTO[]> result = restTemplate.exchange(uri.toUri(), HttpMethod.GET, request, TimeSlotDTO[].class);
+            ResponseEntity<Game[]> result = restTemplate.exchange(uri.toUri(), HttpMethod.GET, request, Game[].class);
 
-            TimeSlotDTO[] objects = result.getBody();
+            Game[] objects = result.getBody();
 
             return objects;
         }
 
         @Override
-        protected void onPostExecute(TimeSlotDTO[] bookings) {
+        protected void onPostExecute(Game[] games) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
-            RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.next_booking_view);
+            RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.all_games_view);
             recyclerView.setLayoutManager(linearLayoutManager);
             recyclerView.setHasFixedSize(true);
-            TimeSlotDTO nextBooking[] = new TimeSlotDTO[1];
-            if (bookings.length > 0) {
-                nextBooking[0] = bookings[0];
-                /*for(int i = 1; i < bookings.length; i++){
-                    if(nextBooking[0].getDateISO8601().compareTo(bookings[i].getDateISO8601())<0
-                            || (nextBooking[0].getDateISO8601().compareTo(bookings[i].getDateISO8601())== 0
-                            && nextBooking[0].getBeginHourISO8601().compareTo(bookings[i].getBeginHourISO8601())>0)){
-                        nextBooking[0] = bookings[i];
-                    }
-                }*/
-                recyclerView.setAdapter(new AccessTokensAdapter(HomeFragment.this.getContext(), nextBooking));
-            }
+
+            recyclerView.setAdapter(new GameAdapter(HomeFragment.this.getContext(), games));
         }
     }
+
 
 }
 

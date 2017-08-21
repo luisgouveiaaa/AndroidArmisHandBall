@@ -21,10 +21,11 @@ import java.util.List;
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
 
     private Context mContext;
-    private List<Game> mGames;
+    private Game[] mGames;
 
-    public GameAdapter(Context context, List<Game> games){
+    public GameAdapter(Context context, Game[] games){
         this.mContext = context;
+        this.mGames = games;
     }
 
     @Override
@@ -35,23 +36,23 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Game game = mGames.get(position);
+        Game game = mGames[position];
 
-        holder.gameDate.setText(game.getDate().toString());
-        holder.tournamentInfo.setText(game.getMatchDay().getEdition().getTournament().getName());
-        holder.homeClubName.setText(game.getHomeTeam().getClub().getName());
-        byte[] logo = game.getHomeTeam().getClub().getLogo();
-        holder.homeClubLogo.setImageBitmap(BitmapFactory.decodeByteArray(logo, 0, logo.length));
+        holder.gameDate.setText(game.getDate());
+        holder.tournamentInfo.setText(game.getMatchDay());
+        holder.homeClubName.setText(game.getHomeTeam());
+        //byte[] logo = game.getHomeTeamLogo();
+       // holder.homeClubLogo.setImageBitmap(BitmapFactory.decodeByteArray(logo, 0, logo.length));
         holder.homeClubScore.setText(game.getHomeTeamScore());
-        holder.visitorClubName.setText(game.getVisitorTeam().getClub().getName());
-        logo = game.getVisitorTeam().getClub().getLogo();
-        holder.visitorClubLogo.setImageBitmap(BitmapFactory.decodeByteArray(logo, 0, logo.length));
+        holder.visitorClubName.setText(game.getVisitorTeam());
+        //logo = game.getVisitorTeam().getClub().getLogo();
+      //  holder.visitorClubLogo.setImageBitmap(BitmapFactory.decodeByteArray(logo, 0, logo.length));
         holder.visitorClubScore.setText(game.getVisitorTeamScore());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mGames.length;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

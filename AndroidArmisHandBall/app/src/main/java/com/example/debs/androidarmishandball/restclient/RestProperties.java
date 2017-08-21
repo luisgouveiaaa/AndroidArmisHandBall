@@ -1,4 +1,4 @@
-package com.example.debs.androidarmishandball.activity.restclient;
+package com.example.debs.androidarmishandball.restclient;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * Created by Debs on 18/08/17.
- */
 
 public class RestProperties {
     private static final String PROPERTIES_FILE = "restserver.properties";
@@ -46,6 +43,18 @@ public class RestProperties {
 
     public String getTournamentsUri(){
         return properties.getProperty("webservice.tournaments.baseuri");
+    }
+
+    public String getAthletesUri(){
+        return properties.getProperty("webservice.athletes.baseuri");
+    }
+
+    public String getApiServerUri(){
+        return properties.getProperty("webservice.apiserver.baseuri");
+    }
+
+    public String getSearchUri(){
+        return properties.getProperty("webservice.search.baseuri");
     }
 
     public String getLoginUri(){
