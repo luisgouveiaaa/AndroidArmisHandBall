@@ -6,10 +6,14 @@ package com.example.debs.androidarmishandball.restclient.dto;
 
 public class SearchResult {
 
-    public int pk;
-    public SearchableType type;
-    public String name;
-    public byte[] image;
+    private int pk;
+    private SearchableType type;
+    private String name;
+    private byte[] image;
+
+    public SearchResult(){
+
+    }
 
     public SearchResult(int pk, int type, String name, byte[] image)
     {
@@ -17,10 +21,6 @@ public class SearchResult {
         this.type = SearchableType.valueOf(String.valueOf(type));
         this.name = name;
         this.image = image;
-    }
-
-    public SearchResult(){
-
     }
 
     public int getPk() {

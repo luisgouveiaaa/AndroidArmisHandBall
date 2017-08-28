@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.debs.androidarmishandball.Game;
+import com.example.debs.androidarmishandball.restclient.dto.Game;
 import com.example.debs.androidarmishandball.R;
 import com.example.debs.androidarmishandball.activity.GameActivity;
-
-import java.util.List;
 
 /**
  * Created by Luis Gouveia on 16/08/2017.

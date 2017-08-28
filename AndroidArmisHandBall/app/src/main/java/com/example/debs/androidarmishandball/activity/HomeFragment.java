@@ -9,9 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.debs.androidarmishandball.Game;
+import com.example.debs.androidarmishandball.restclient.dto.Game;
 import com.example.debs.androidarmishandball.R;
-import com.example.debs.androidarmishandball.restclient.AppSession;
 import com.example.debs.androidarmishandball.restclient.RestProperties;
 import com.example.debs.androidarmishandball.adapter.GameAdapter;
 

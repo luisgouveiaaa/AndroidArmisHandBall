@@ -2,7 +2,6 @@ package com.example.debs.androidarmishandball.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.debs.androidarmishandball.Game;
 import com.example.debs.androidarmishandball.R;
 import com.example.debs.androidarmishandball.adapter.SearchAdapter;
-import com.example.debs.androidarmishandball.restclient.AppSession;
 import com.example.debs.androidarmishandball.restclient.RestProperties;
 import com.example.debs.androidarmishandball.restclient.dto.SearchResult;
 
@@ -27,9 +24,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

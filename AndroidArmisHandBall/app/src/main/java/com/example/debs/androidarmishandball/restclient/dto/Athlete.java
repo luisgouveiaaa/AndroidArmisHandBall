@@ -1,4 +1,4 @@
-package com.example.debs.androidarmishandball;
+package com.example.debs.androidarmishandball.restclient.dto;
 
 /**
  * Created by Luis Gouveia on 16/08/2017.
@@ -16,7 +16,6 @@ public class Athlete {
     private int teamPk;
 
     public Athlete(){
-
     }
 
     public Athlete(int pk, byte[] photo , String name , String gender , int age , String nationality , String clubName , int teamPk){
