@@ -1,10 +1,12 @@
 package com.example.debs.androidarmishandball.restclient.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Debs on 21/08/17.
  */
 
-public class SearchResult {
+public class SearchResult implements Serializable{
 
     private int pk;
     private SearchableType type;
@@ -19,6 +21,12 @@ public class SearchResult {
     {
         this.pk = pk;
         this.type = SearchableType.valueOf(String.valueOf(type));
+        this.name = name;
+        this.image = image;
+    }
+    public SearchResult(int pk, String name, byte[] image)
+    {
+        this.pk = pk;
         this.name = name;
         this.image = image;
     }

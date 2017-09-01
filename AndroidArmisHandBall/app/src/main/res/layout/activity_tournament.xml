@@ -11,7 +11,7 @@
         android:id="@+id/Tournament_info_header"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:background="@color/colorPrimary"
         android:elevation="3dp"
         android:orientation="vertical">
@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
+            android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
             android:padding="15dp"
             android:src="@drawable/tournament_white_icon" />
@@ -29,19 +30,43 @@
             android:id="@+id/tournament_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="TOURNAMENT"
+            android:textStyle="bold"
             android:textColor="@android:color/white"
             android:textSize="17sp" />
 
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/tournament_editions_view"
+    <LinearLayout
+        android:id="@+id/editions_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="4.7"
+        android:orientation="vertical">
 
-    </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0.15"
+            android:gravity="bottom"
+            android:text="Editions"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/tournament_editions_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_margin="2dp">
+
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
 </LinearLayout>

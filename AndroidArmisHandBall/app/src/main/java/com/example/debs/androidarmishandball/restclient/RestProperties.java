@@ -41,9 +41,23 @@ public class RestProperties {
         return properties.getProperty("webservice.games.baseuri");
     }
 
+    public String getGoalRecordUri(){
+        return properties.getProperty("webservice.goalrecords.baseuri");
+    }
+
     public String getTournamentsUri(){
         return properties.getProperty("webservice.tournaments.baseuri");
     }
+
+    public String getEditionsUri(){
+        return properties.getProperty("webservice.editions.baseuri");
+    }
+
+    public String getMatchDaysUri(){
+        return properties.getProperty("webservice.matchdays.baseuri");
+    }
+
+
 
     public String getAthletesUri(){
         return properties.getProperty("webservice.athletes.baseuri");

@@ -1,6 +1,7 @@
 package com.example.debs.androidarmishandball.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.example.debs.androidarmishandball.restclient.dto.Game;
 import com.example.debs.androidarmishandball.R;
 import com.example.debs.androidarmishandball.activity.GameActivity;
+import com.example.debs.androidarmishandball.activity.MainActivity;
 
 /**
  * Created by Luis Gouveia on 16/08/2017.
@@ -37,26 +39,17 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Game game = mGames[position];
-
+        holder.extras.putExtra("game", game);
         holder.gameDate.setText(game.getDate());
-        holder.extras.putCharSequence("date", game.getDate());
         holder.tournamentInfo.setText(game.getMatchDay());
-        holder.extras.putCharSequence("matchDay", game.getMatchDay());
         holder.homeClubName.setText(game.getHomeTeam());
-        holder.extras.putCharSequence("homeTeam", game.getHomeTeam());
         byte[] logo = game.getHomeClubLogo();
-        holder.extras.putByteArray("homeClubLogo", logo);
         if(logo != null) holder.homeClubLogo.setImageBitmap(BitmapFactory.decodeByteArray(logo, 0, logo.length));
         holder.homeClubScore.setText(String.valueOf(game.getHomeTeamScore()));
-        holder.extras.putByte("homeTeamScore", game.getHomeTeamScore());
         holder.visitorClubName.setText(game.getVisitorTeam());
-        holder.extras.putCharSequence("visitorTeam", game.getVisitorTeam());
         logo = game.getVisitorClubLogo();
-        holder.extras.putByteArray("homeVisitorLogo", logo);
         if(logo != null) holder.visitorClubLogo.setImageBitmap(BitmapFactory.decodeByteArray(logo, 0, logo.length));
         holder.visitorClubScore.setText(String.valueOf(game.getVisitorTeamScore()));
-        holder.extras.putByte("visitorTeamScore", game.getVisitorTeamScore());
-        holder.extras.putInt("GamePk", game.getPk());
     }
 
     @Override
@@ -75,20 +68,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         TextView visitorClubName;
         ImageView visitorClubLogo;
         TextView visitorClubScore;
-        Bundle extras;
+        Intent extras;
 
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-
+            extras = new Intent(GameAdapter.this.mContext, GameActivity.class);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new GameActivity(extras);
+                    mContext.startActivity(extras);
                 }
             });
-            extras = new Bundle();
             tournamentInfo = (TextView) itemView.findViewById(R.id.game_tournament_info);
             gameDate = (TextView) itemView.findViewById(R.id.game_date_info);
             homeClubName = (TextView) itemView.findViewById(R.id.home_club_name);

@@ -1,6 +1,12 @@
 package com.example.debs.androidarmishandball.restclient.dto;
 
-public class Game {
+import java.io.Serializable;
+
+/**
+ * Created by Luis Gouveia on 16/08/2017.
+ */
+
+public class Game implements Serializable{
 
     private int pk;
     private String matchDay;

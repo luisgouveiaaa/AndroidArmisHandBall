@@ -1,10 +1,16 @@
 package com.example.debs.androidarmishandball.activity;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +19,7 @@ import com.example.debs.androidarmishandball.restclient.dto.Game;
 import com.example.debs.androidarmishandball.R;
 import com.example.debs.androidarmishandball.restclient.RestProperties;
 import com.example.debs.androidarmishandball.adapter.GameAdapter;
+import com.example.debs.androidarmishandball.restclient.dto.SearchResult;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -88,7 +95,7 @@ public class HomeFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Game[] games) {
+        protected void onPostExecute(final Game[] games) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
             RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.all_games_view);
@@ -96,10 +103,46 @@ public class HomeFragment extends Fragment {
             recyclerView.setHasFixedSize(true);
 
             recyclerView.setAdapter(new GameAdapter(HomeFragment.this.getContext(), games));
+
+            RecyclerView.ItemDecoration dateDivider = new RecyclerView.ItemDecoration() {
+
+                private int textSize = 30;
+                private int groupSpacing = 100;
+
+                private Paint paint = new Paint();
+                {
+                    paint.setTextSize(textSize);
+                    paint.setFakeBoldText(true);
+                    paint.setTypeface(Typeface.DEFAULT);
+                    paint.setAntiAlias(true);
+                    paint.setColor(Color.DKGRAY);
+                }
+
+                @Override
+                public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                    for (int i = 0; i < parent.getChildCount(); i++) {
+                        View view = parent.getChildAt(i);
+                        int position = parent.getChildAdapterPosition(view);
+                        if((position == 0 || !games[position].getDate().equals((games[position-1].getDate()))) && games.length>0) {
+                            c.drawText(games[position].getDate(), view.getLeft() + 25,
+                                    view.getTop() - groupSpacing / 2 + textSize / 3, paint);
+                        }
+                    }
+                }
+
+                @Override
+                public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                    int position = parent.getChildAdapterPosition(view);
+                    if ((position == 0 || !games[position].getDate().equals((games[position-1].getDate()))) && games.length>0) {
+                        outRect.set(0, groupSpacing, 0, 0);
+                    }
+                }
+
+            };
+            recyclerView.addItemDecoration(dateDivider);
         }
     }
-
-
 }
+
 
 

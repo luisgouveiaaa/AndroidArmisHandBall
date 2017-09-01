@@ -1,10 +1,12 @@
 package com.example.debs.androidarmishandball.restclient.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Luis Gouveia on 16/08/2017.
  */
 
-public class Edition {
+public class Edition implements Serializable{
 
     private int pk;
     private String season;

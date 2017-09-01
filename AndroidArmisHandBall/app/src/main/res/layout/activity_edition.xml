@@ -11,16 +11,17 @@
         android:id="@+id/edition_info_header"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.75"
+        android:layout_weight="1.8"
         android:background="@color/colorPrimary"
         android:elevation="3dp"
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/tournament_edition_logo"
+            android:id="@+id/edition_tournament_logo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="2"
+            android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
             android:padding="15dp"
             android:src="@drawable/tournament_white_icon" />
@@ -33,7 +34,9 @@
             android:gravity="center"
             android:text="TOURNAMENT"
             android:textColor="@android:color/white"
+            android:textStyle="bold"
             android:textSize="17sp" />
+
         <TextView
             android:id="@+id/edition_date"
             android:layout_width="match_parent"
@@ -45,11 +48,15 @@
             android:textSize="15sp" />
 
     </LinearLayout>
+
     <android.support.design.widget.TabLayout
+        android:id="@+id/match_days_tab"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
-        android:background="@color/colorPrimary">
+        android:elevation="3dp"
+        android:background="@color/colorPrimary"
+        app:tabMode="scrollable">
 
     </android.support.design.widget.TabLayout>
 
@@ -57,7 +64,7 @@
         android:id="@+id/edition_matchdays_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="5">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

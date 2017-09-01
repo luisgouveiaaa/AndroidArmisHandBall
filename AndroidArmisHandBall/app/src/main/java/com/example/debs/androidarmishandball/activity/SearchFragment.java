@@ -1,5 +1,11 @@
 package com.example.debs.androidarmishandball.activity;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -24,6 +30,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,21 +45,15 @@ public class SearchFragment extends Fragment {
 
     private View rootView;
     private String search;
+    private RecyclerView.ItemDecoration categoryDivider;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private SearchAdapter adapter;
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment HomeFragment.
-     */
-    public static SearchFragment newInstance() {
-        SearchFragment fragment = new SearchFragment();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,14 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView =  inflater.inflate(R.layout.fragment_search, container, false);
+
         SearchView searchBar = (SearchView) rootView.findViewById(R.id.search_bar);
+
+        linearLayoutManager = new LinearLayoutManager(getContext());
+
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.search_results_view);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -100,14 +112,61 @@ public class SearchFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(SearchResult[] results) {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        protected void onPostExecute(final SearchResult[] results) {
 
-            RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.search_results_view);
-            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.removeAllViewsInLayout();
             recyclerView.setHasFixedSize(true);
 
-            recyclerView.setAdapter(new SearchAdapter(SearchFragment.this.getContext(), results));
+            if(categoryDivider == null){
+                categoryDivider = new RecyclerView.ItemDecoration() {
+
+                    private int textSize = 30;
+                    private int groupSpacing = 100;
+
+                    private Paint paint = new Paint();
+                    {
+                        paint.setTextSize(textSize);
+                        paint.setFakeBoldText(true);
+                        paint.setTypeface(Typeface.DEFAULT);
+                        paint.setAntiAlias(true);
+                        paint.setColor(Color.DKGRAY);
+                    }
+
+                    @Override
+                    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                        for (int i = 0; i < parent.getChildCount(); i++) {
+                            View view = parent.getChildAt(i);
+                            int position = parent.getChildAdapterPosition(view);
+                            if(results.length>0 && position<results.length) {
+                                if (position == 0 || !results[position].getType().name().equals((results[position - 1].getType().name()))) {
+                                    c.drawText(results[position].getType().name(), view.getLeft() + 30,
+                                            view.getTop() - groupSpacing / 2 + textSize / 3, paint);
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                        int position = parent.getChildAdapterPosition(view);
+                        if(results.length>0 && position<results.length) {
+                            if (position == 0 || !results[position].getType().name().equals((results[position - 1].getType().name()))) {
+                                outRect.set(0, groupSpacing, 0, 0);
+                            }
+                        }
+                    }
+
+                };
+                recyclerView.addItemDecoration(categoryDivider);
+            }
+            if(adapter == null){
+                adapter = new SearchAdapter(SearchFragment.this.getContext(), results);
+                recyclerView.setAdapter(adapter);
+            }else {
+                adapter.changeViewContent(results);
+                recyclerView.invalidateItemDecorations();
+
+            }
         }
     }
 }
