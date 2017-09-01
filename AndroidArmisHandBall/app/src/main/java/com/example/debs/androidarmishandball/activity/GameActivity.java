@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.debs.androidarmishandball.GoalRecord;
+import com.example.debs.androidarmishandball.restclient.dto.GoalRecord;
 import com.example.debs.androidarmishandball.R;
 import com.example.debs.androidarmishandball.adapter.GoalRecordAdapter;
 import com.example.debs.androidarmishandball.restclient.RestProperties;

@@ -1,4 +1,4 @@
-package com.example.debs.androidarmishandball;
+package com.example.debs.androidarmishandball.restclient.dto;
 
 public class GoalRecord {
 
