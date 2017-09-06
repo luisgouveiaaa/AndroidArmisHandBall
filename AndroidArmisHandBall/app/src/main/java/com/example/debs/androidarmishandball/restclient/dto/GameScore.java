@@ -3,16 +3,16 @@ package com.example.debs.androidarmishandball.restclient.dto;
 public class GameScore {
 
     private int gamePk ;
-    private byte homeTeamScore ;
-    private byte visitorTeamScore ;
+    private int teamPk ;
+    private byte teamScore ;
 
     public GameScore(){
     }
 
-    public GameScore(int gamePk , byte homeTeamScore , byte visitorTeamScore){
+    public GameScore(int gamePk , int teamPk , byte teamScore){
         this.gamePk = gamePk;
-        this.homeTeamScore = homeTeamScore;
-        this.visitorTeamScore = visitorTeamScore;
+        this.teamPk = teamPk;
+        this.teamScore = teamScore;
     }
 
     public int getGamePk() {
@@ -23,19 +23,19 @@ public class GameScore {
         this.gamePk = gamePk;
     }
 
-    public byte getHomeTeamScore() {
-        return homeTeamScore;
+    public int getTeamPk() {
+        return teamPk;
     }
 
-    public void setHomeTeamScore(byte homeTeamScore) {
-        this.homeTeamScore = homeTeamScore;
+    public void setTeamPk(int teamPk) {
+        this.teamPk = teamPk;
     }
 
-    public byte getVisitorTeamScore() {
-        return visitorTeamScore;
+    public byte getTeamScore() {
+        return teamScore;
     }
 
-    public void setVisitorTeamScore(byte visitorTeamScore) {
-        this.visitorTeamScore = visitorTeamScore;
+    public void setTeamScore(byte teamScore) {
+        this.teamScore = teamScore;
     }
 }

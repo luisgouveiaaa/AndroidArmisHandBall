@@ -2,6 +2,7 @@ package com.example.debs.androidarmishandball.restclient.dto;
 
 public class PostedGoalRecord {
 
+    private int pk;
     private int athletepk;
     private int gamepk;
     private int teampk;
@@ -11,11 +12,20 @@ public class PostedGoalRecord {
 
     }
 
-    public PostedGoalRecord(int athletepk , int gamepk , int teampk , byte count){
+    public PostedGoalRecord(int pk,int athletepk , int gamepk , int teampk , byte count){
+        this.pk = pk;
         this.athletepk = athletepk;
         this.gamepk = gamepk;
         this.teampk = teampk;
         this.count = count;
+    }
+
+    public int getPk(){
+        return pk;
+    }
+
+    public void setPk(int pk){
+        this.pk = pk;
     }
 
     public int getAthletepk() {
