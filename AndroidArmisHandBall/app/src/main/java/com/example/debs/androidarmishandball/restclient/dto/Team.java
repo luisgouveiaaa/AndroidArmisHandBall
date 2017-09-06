@@ -2,13 +2,14 @@ package com.example.debs.androidarmishandball.restclient.dto;
 
 import com.example.debs.androidarmishandball.restclient.dto.Athlete;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Luis Gouveia on 16/08/2017.
  */
 
-public class Team {
+public class Team implements Serializable{
 
     private int pk;
     private String gender;

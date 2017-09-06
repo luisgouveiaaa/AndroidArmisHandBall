@@ -1,6 +1,5 @@
 package com.example.debs.androidarmishandball.activity;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,7 +18,7 @@ import android.view.ViewGroup;
 import com.example.debs.androidarmishandball.R;
 import com.example.debs.androidarmishandball.adapter.SearchAdapter;
 import com.example.debs.androidarmishandball.restclient.RestProperties;
-import com.example.debs.androidarmishandball.restclient.dto.SearchResult;
+import com.example.debs.androidarmishandball.restclient.dto.SimpleContent;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -30,11 +29,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,9 +40,6 @@ public class SearchFragment extends Fragment {
     private View rootView;
     private String search;
     private RecyclerView.ItemDecoration categoryDivider;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
-    private SearchAdapter adapter;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -68,11 +59,6 @@ public class SearchFragment extends Fragment {
 
         SearchView searchBar = (SearchView) rootView.findViewById(R.id.search_bar);
 
-        linearLayoutManager = new LinearLayoutManager(getContext());
-
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.search_results_view);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -91,10 +77,10 @@ public class SearchFragment extends Fragment {
         return rootView;
     }
 
-    private class HttpRequestTask extends AsyncTask<Void, Void, SearchResult[]> {
+    private class HttpRequestTask extends AsyncTask<Void, Void, SimpleContent[]> {
 
         @Override
-        protected SearchResult[] doInBackground(Void... params) {
+        protected SimpleContent[] doInBackground(Void... params) {
             RestProperties webProperties = new RestProperties(SearchFragment.this.getContext());
             final UriComponents uri = UriComponentsBuilder.newInstance().scheme(webProperties.getScheme())
                     .host(webProperties.getHost()).path(webProperties.getApiServerUri() + webProperties.getSearchUri()).queryParam("name", search).build();
@@ -104,26 +90,31 @@ public class SearchFragment extends Fragment {
 
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            ResponseEntity<SearchResult[]> result = restTemplate.exchange(uri.toUri(), HttpMethod.GET, request, SearchResult[].class);
+            ResponseEntity<SimpleContent[]> result = restTemplate.exchange(uri.toUri(), HttpMethod.GET, request, SimpleContent[].class);
 
-            SearchResult[] objects = result.getBody();
+            SimpleContent[] objects = result.getBody();
 
             return objects;
         }
 
         @Override
-        protected void onPostExecute(final SearchResult[] results) {
+        protected void onPostExecute(final SimpleContent[] results) {
 
-            recyclerView.removeAllViewsInLayout();
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+            RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.search_results_view);
+            recyclerView.setLayoutManager(layoutManager);
             recyclerView.setHasFixedSize(true);
-
-            if(categoryDivider == null){
+            recyclerView.setAdapter(new SearchAdapter(SearchFragment.this.getContext(), results));
+            if(categoryDivider == null) {
                 categoryDivider = new RecyclerView.ItemDecoration() {
 
                     private int textSize = 30;
                     private int groupSpacing = 100;
 
                     private Paint paint = new Paint();
+
                     {
                         paint.setTextSize(textSize);
                         paint.setFakeBoldText(true);
@@ -137,7 +128,7 @@ public class SearchFragment extends Fragment {
                         for (int i = 0; i < parent.getChildCount(); i++) {
                             View view = parent.getChildAt(i);
                             int position = parent.getChildAdapterPosition(view);
-                            if(results.length>0 && position<results.length) {
+                            if (results.length > 0 && position < results.length) {
                                 if (position == 0 || !results[position].getType().name().equals((results[position - 1].getType().name()))) {
                                     c.drawText(results[position].getType().name(), view.getLeft() + 30,
                                             view.getTop() - groupSpacing / 2 + textSize / 3, paint);
@@ -149,23 +140,19 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                         int position = parent.getChildAdapterPosition(view);
-                        if(results.length>0 && position<results.length) {
+                        if (results.length > 0 && position < results.length) {
                             if (position == 0 || !results[position].getType().name().equals((results[position - 1].getType().name()))) {
                                 outRect.set(0, groupSpacing, 0, 0);
+                            }else{
+                                outRect.setEmpty();
                             }
                         }
                     }
 
                 };
                 recyclerView.addItemDecoration(categoryDivider);
-            }
-            if(adapter == null){
-                adapter = new SearchAdapter(SearchFragment.this.getContext(), results);
-                recyclerView.setAdapter(adapter);
-            }else {
-                adapter.changeViewContent(results);
+            }else{
                 recyclerView.invalidateItemDecorations();
-
             }
         }
     }

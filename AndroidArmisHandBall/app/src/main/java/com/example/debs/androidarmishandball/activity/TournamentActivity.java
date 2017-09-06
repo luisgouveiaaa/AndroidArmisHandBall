@@ -7,17 +7,17 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.debs.androidarmishandball.R;
 import com.example.debs.androidarmishandball.adapter.EditionAdapter;
 import com.example.debs.androidarmishandball.restclient.RestProperties;
 import com.example.debs.androidarmishandball.restclient.dto.Edition;
-import com.example.debs.androidarmishandball.restclient.dto.SearchResult;
+import com.example.debs.androidarmishandball.restclient.dto.SimpleContent;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,33 +28,50 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class TournamentActivity extends AppCompatActivity {
 
-    private SearchResult tournamentInfo;
+    private SimpleContent tournamentInfo;
+    private boolean isFavorite;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournament);
 
-        tournamentInfo = (SearchResult) this.getIntent().getSerializableExtra("tournament");
+        tournamentInfo = (SimpleContent) this.getIntent().getSerializableExtra("tournament");
 
         TextView tournamentName = (TextView) findViewById(R.id.tournament_name);
         tournamentName.setText(tournamentInfo.getName());
 
         ImageView tournamentLogo = (ImageView) findViewById(R.id.tournament_logo);
         byte[] logo = tournamentInfo.getImage();
-        tournamentLogo.setOnClickListener(new View.OnClickListener() {
+        if(logo != null) tournamentLogo.setImageBitmap(BitmapFactory.decodeByteArray(logo, 0, logo.length));
+        final ImageButton favoriteButton = (ImageButton) findViewById(R.id.favorite_button);
+        if(getSharedPreferences("favoriteTournaments", MODE_PRIVATE).contains(tournamentInfo.getName())){
+            favoriteButton.setBackgroundResource(R.drawable.favorite_full_white_icon);
+            isFavorite = true;
+        }else{
+            isFavorite = false;
+        }
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSharedPreferences("favTournaments", MODE_PRIVATE).edit().putInt( tournamentInfo.getName(), tournamentInfo.getPk()).commit();
+                if (isFavorite) {
+                    getSharedPreferences("favoriteTournaments", MODE_PRIVATE).edit().remove(tournamentInfo.getName()).commit();
+                    Toast.makeText(TournamentActivity.this, "Removed from Favorites", Toast.LENGTH_SHORT).show();
+                    favoriteButton.setBackgroundResource(R.drawable.favorite_white_icon);
+                    isFavorite = false;
+                } else {
+                    getSharedPreferences("favoriteTournaments", MODE_PRIVATE).edit().putInt(tournamentInfo.getName(), tournamentInfo.getPk()).commit();
+                    Toast.makeText(TournamentActivity.this, "Added to Favorites", Toast.LENGTH_SHORT).show();
+                    favoriteButton.setBackgroundResource(R.drawable.favorite_full_white_icon);
+                    isFavorite = true;
+                }
+
             }
         });
-        if(logo != null) tournamentLogo.setImageBitmap(BitmapFactory.decodeByteArray(logo, 0, logo.length));
-
         new HttpRequestTask().execute();
     }
 

@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.debs.androidarmishandball.activity.FavoritesFragment">
     <ScrollView
         android:layout_width="match_parent"
@@ -37,12 +38,12 @@
            <TextView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:text="Athletes"
+               android:text="Teams"
                android:textSize="25dp"
                android:textStyle="bold"/>
 
            <com.example.debs.androidarmishandball.activity.NestedListView
-               android:id="@+id/favorite_athletes_list"
+               android:id="@+id/favorite_teams_list"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"/>
 

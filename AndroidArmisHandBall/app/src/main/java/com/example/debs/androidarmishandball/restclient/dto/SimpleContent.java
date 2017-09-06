@@ -6,25 +6,26 @@ import java.io.Serializable;
  * Created by Debs on 21/08/17.
  */
 
-public class SearchResult implements Serializable{
+public class SimpleContent implements Serializable{
 
     private int pk;
     private SearchableType type;
     private String name;
     private byte[] image;
 
-    public SearchResult(){
+    public SimpleContent(){
+
 
     }
 
-    public SearchResult(int pk, int type, String name, byte[] image)
+    public SimpleContent(int pk, int type, String name, byte[] image)
     {
         this.pk = pk;
         this.type = SearchableType.valueOf(String.valueOf(type));
         this.name = name;
         this.image = image;
     }
-    public SearchResult(int pk, String name, byte[] image)
+    public SimpleContent(int pk, String name, byte[] image)
     {
         this.pk = pk;
         this.name = name;

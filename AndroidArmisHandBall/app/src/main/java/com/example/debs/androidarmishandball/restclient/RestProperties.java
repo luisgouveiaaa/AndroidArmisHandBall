@@ -63,6 +63,14 @@ public class RestProperties {
         return properties.getProperty("webservice.athletes.baseuri");
     }
 
+    public String getTeamsUri(){
+        return properties.getProperty("webservice.teams.baseuri");
+    }
+
+    public String getClubsUri(){
+        return properties.getProperty("webservice.clubs.baseuri");
+    }
+
     public String getApiServerUri(){
         return properties.getProperty("webservice.apiserver.baseuri");
     }

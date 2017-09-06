@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="3dp"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/game_card"
+    android:elevation="2dp"
+    tools:context="com.example.debs.androidarmishandball.activity.SetGameResultsActivity">
+    <LinearLayout
+        android:id="@+id/game_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/game_teams"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+
+            android:text="HOME vs VISITOR"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/club_icon"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="6dp"
+                    android:src="@drawable/club_default_icon"/>
+                <TextView
+                    android:id="@+id/club_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+
+                    android:gravity="center"
+                    android:text="CLUB"/>
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/team_score"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:layout_gravity="center"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:text="80"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:orientation="vertical"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:layout_below="@id/game_view">
+        <TextView
+            android:id="@+id/goal_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Goals"
+            android:textStyle="bold"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/home_team_goal_record_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/goal_string"/>
+        </RelativeLayout>
+
+
+
+</LinearLayout>

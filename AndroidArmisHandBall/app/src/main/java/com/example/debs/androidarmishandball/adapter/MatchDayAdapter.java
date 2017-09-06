@@ -72,7 +72,7 @@ public class MatchDayAdapter {
                 if(buffer.containsKey(matchDays[currentMatchDay])){
                     currentMatchDayGames = buffer.get(matchDays[currentMatchDay]);
                     fillRecycleView();
-                }else {
+                }else{
                     new HttpRequestTask().execute();
                 }
             }
@@ -81,7 +81,6 @@ public class MatchDayAdapter {
     }
 
     private void fillRecycleView() {
-        System.out.println(currentMatchDayGames);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mParentActivity.getBaseContext());
         RecyclerView editionsView = (RecyclerView) mParentActivity.findViewById(R.id.edition_matchdays_view);
         editionsView.setLayoutManager(layoutManager);
@@ -93,6 +92,7 @@ public class MatchDayAdapter {
         for(int i = 0; i < mMatchDays.length; i++){
             matchDaysTab.addTab(matchDaysTab.newTab().setText(mMatchDays[i].getName()));
         }
+
     }
 
     private class HttpRequestTask extends AsyncTask<Void, Void, Game[]> {

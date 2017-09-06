@@ -2,12 +2,8 @@ package com.example.debs.androidarmishandball.activity;
 
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.TabLayout.Tab;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +12,7 @@ import com.example.debs.androidarmishandball.adapter.MatchDayAdapter;
 import com.example.debs.androidarmishandball.restclient.RestProperties;
 import com.example.debs.androidarmishandball.restclient.dto.Edition;
 import com.example.debs.androidarmishandball.restclient.dto.MatchDay;
-import com.example.debs.androidarmishandball.restclient.dto.SearchResult;
+import com.example.debs.androidarmishandball.restclient.dto.SimpleContent;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,14 +27,14 @@ import java.util.Map;
 
 public class EditionActivity extends AppCompatActivity {
 
-    private SearchResult tournamentInfo;
+    private SimpleContent tournamentInfo;
     private Edition editionInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edition);
 
-        tournamentInfo = (SearchResult) this.getIntent().getSerializableExtra("tournament");
+        tournamentInfo = (SimpleContent) this.getIntent().getSerializableExtra("tournament");
         editionInfo = (Edition) this.getIntent().getSerializableExtra("edition");
 
         TextView tournamentName = (TextView) findViewById(R.id.edition_tournament_name);

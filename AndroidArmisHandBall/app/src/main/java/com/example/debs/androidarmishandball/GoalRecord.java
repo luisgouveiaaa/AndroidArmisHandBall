@@ -3,6 +3,7 @@ package com.example.debs.androidarmishandball;
 public class GoalRecord {
 
     private int pk ;
+    private int athletePk;
     private int team ;
     private String athleteName ;
     private byte[] athletePhoto ;
@@ -27,6 +28,14 @@ public class GoalRecord {
 
     public void setPk(int pk) {
         this.pk = pk;
+    }
+
+    public int getAhtletePk() {
+        return athletePk;
+    }
+
+    public void setAthletePk(int athletePk) {
+        this.athletePk = athletePk;
     }
 
     public int getTeam() {

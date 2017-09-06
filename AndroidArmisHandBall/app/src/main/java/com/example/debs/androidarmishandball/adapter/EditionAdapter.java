@@ -11,15 +11,15 @@ import android.widget.TextView;
 import com.example.debs.androidarmishandball.R;
 import com.example.debs.androidarmishandball.activity.EditionActivity;
 import com.example.debs.androidarmishandball.restclient.dto.Edition;
-import com.example.debs.androidarmishandball.restclient.dto.SearchResult;
+import com.example.debs.androidarmishandball.restclient.dto.SimpleContent;
 
 public class EditionAdapter extends RecyclerView.Adapter<EditionAdapter.ViewHolder> {
 
     private Context mContext;
-    private SearchResult mTournament;
+    private SimpleContent mTournament;
     private Edition[] mResults;
 
-    public EditionAdapter(Context mContext, Edition[] mResults, SearchResult tournament) {
+    public EditionAdapter(Context mContext, Edition[] mResults, SimpleContent tournament) {
         this.mContext = mContext;
         this.mResults = mResults;
         this.mTournament = tournament;

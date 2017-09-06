@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@android:color/white">
+    <ImageView
+        android:id="@+id/athlete_photo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.1"
+        android:adjustViewBounds="true"
+        android:padding="6dp"
+        android:layout_gravity="center"
+        android:src="@drawable/athlete_black_icon"/>
+    <TextView
+        android:id="@+id/athlete_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:text="ATHLETE'S NAME"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        android:textSize="19sp"
+        />
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/plus_black_icon"
+        android:tint="@android:color/holo_green_light"
+        android:scaleType="fitCenter"
+        android:elevation="2dp"/>
+    <TextView
+        android:id="@+id/athlete_game_score"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:text="0"
+        android:textSize="19sp"
+        android:gravity="center"
+        />
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/minus_black_icon"
+        android:tint="@android:color/holo_red_light"
+        android:scaleType="fitCenter"
+        android:elevation="2dp"/>
+</LinearLayout>

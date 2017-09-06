@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.example.debs.androidarmishandball.restclient.dto.Game;
 import com.example.debs.androidarmishandball.R;
 import com.example.debs.androidarmishandball.restclient.RestProperties;
 import com.example.debs.androidarmishandball.adapter.GameAdapter;
-import com.example.debs.androidarmishandball.restclient.dto.SearchResult;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
