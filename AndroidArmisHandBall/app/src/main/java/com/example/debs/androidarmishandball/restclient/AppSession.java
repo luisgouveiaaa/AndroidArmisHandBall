@@ -2,6 +2,10 @@ package com.example.debs.androidarmishandball.restclient;
 
 import android.util.Base64;
 
+import com.example.debs.androidarmishandball.restclient.dto.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AppSession {
