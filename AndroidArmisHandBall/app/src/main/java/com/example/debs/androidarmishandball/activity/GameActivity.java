@@ -1,11 +1,14 @@
 package com.example.debs.androidarmishandball.activity;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +34,17 @@ import java.util.Map;
 public class GameActivity extends AppCompatActivity {
 
     private Bundle mGameInfo;
+    private GoalRecord[] homeTeamGoals;
+    private GoalRecord[] visitorTeamGoals;
     public GameActivity() {
+    }
+
+    public void setHomeTeamGoals(GoalRecord[] homeTeamGoals) {
+        this.homeTeamGoals = homeTeamGoals;
+    }
+
+    public void setVisitorTeamGoals(GoalRecord[] visitorTeamGoals) {
+        this.visitorTeamGoals = visitorTeamGoals;
     }
 
     @Override
@@ -39,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         mGameInfo = this.getIntent().getExtras();
-        Game game = (Game) mGameInfo.getSerializable("game");
+        final Game game = (Game) mGameInfo.getSerializable("game");
 
         TextView tournamentInfo = (TextView) findViewById(R.id.game_tournament_info);
         TextView gameDate = (TextView) findViewById(R.id.game_date_info);
@@ -61,6 +74,26 @@ public class GameActivity extends AppCompatActivity {
         if(logo != null) visitorClubLogo.setImageBitmap(BitmapFactory.decodeByteArray(logo, 0, logo.length));
         visitorClubScore.setText(String.valueOf(game.getVisitorTeamScore()));
 
+        Button editHomeTeamResults = (Button) findViewById(R.id.edit_home_team_score_button);
+        editHomeTeamResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), SetGameResultsActivity.class);
+                intent.putExtra("game", game);
+                intent.putExtra("team", 0);
+                startActivity(intent);
+            }
+        });
+        Button editVisitorTeamResults = (Button) findViewById(R.id.edit_visitor_team_score_button);
+        editVisitorTeamResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), SetGameResultsActivity.class);
+                intent.putExtra("game", game);
+                intent.putExtra("team", 1);
+                startActivity(intent);
+            }
+        });
         new HttpRequestTask().execute();
     }
 
@@ -115,7 +148,9 @@ public class GameActivity extends AppCompatActivity {
 
 
             homeTeamGoalRecordView.setAdapter(new GoalRecordAdapter(GameActivity.this.getBaseContext(), homeTeamGoals.toArray(new GoalRecord[homeTeamGoals.size()])));
+            GameActivity.this.setHomeTeamGoals(homeTeamGoals.toArray(new GoalRecord[homeTeamGoals.size()]));
             visitorTeamGoalRecordView.setAdapter(new GoalRecordAdapter(GameActivity.this.getBaseContext(), visitorTeamGoals.toArray(new GoalRecord[visitorTeamGoals.size()])));
+            GameActivity.this.setVisitorTeamGoals(visitorTeamGoals.toArray(new GoalRecord[visitorTeamGoals.size()]));
         }
     }
 }

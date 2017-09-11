@@ -164,6 +164,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true">
+
         <Button
             android:id="@+id/edit_home_team_score_button"
             android:layout_width="0dp"
@@ -171,7 +172,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
             android:text="edit team score"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" />
+
         <Button
             android:id="@+id/edit_visitor_team_score_button"
             android:layout_width="0dp"

@@ -18,7 +18,7 @@ public class Athlete {
     public Athlete(){
     }
 
-    public Athlete(int pk, byte[] photo , String name , String gender , int age , String nationality , String clubName , int teamPk){
+    public Athlete(int pk, byte[] photo, String name, String gender, int age, String nationality, String clubName, int teamPk){
         this.pk = pk;
         this.photo = photo;
         this.name = name;

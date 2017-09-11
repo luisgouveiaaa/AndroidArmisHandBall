@@ -50,7 +50,7 @@
                     android:id="@+id/club_name"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.6"
 
                     android:gravity="center"
                     android:text="CLUB"/>
@@ -58,12 +58,11 @@
 
             </LinearLayout>
 
-            <EditText
+            <TextView
                 android:id="@+id/team_score"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
                 android:layout_gravity="center"
                 android:textSize="30sp"
                 android:gravity="center"
@@ -83,8 +82,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
-        android:layout_below="@id/game_view">
+        android:layout_weight="4">
         <TextView
             android:id="@+id/goal_string"
             android:layout_width="match_parent"
@@ -94,11 +92,20 @@
             android:text="Goals"
             android:textStyle="bold"/>
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/home_team_goal_record_view"
+                android:id="@+id/team_goal_record_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/goal_string"/>
+
         </RelativeLayout>
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.43"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="save"
+        android:textColor="@android:color/white"/>
 
 
 

@@ -1,10 +1,15 @@
 package com.example.debs.androidarmishandball.restclient.dto;
 
-public class GoalRecord {
+import android.support.annotation.Nullable;
+
+import java.io.Serializable;
+
+public class GoalRecord implements Serializable{
 
     private int pk ;
     private int athletePk;
-    private int team ;
+    private int gamePk;
+    private int team;
     private String athleteName ;
     private byte[] athletePhoto ;
     private byte count ;
@@ -13,7 +18,7 @@ public class GoalRecord {
 
     }
 
-    public GoalRecord(int pk, int team , String athleteName , byte[] athletePhoto , byte count)
+    public GoalRecord(int pk, int team , int gamePk, String athleteName , byte[] athletePhoto , byte count)
     {
         this.pk = pk;
         this.team = team; //team is 0 to home, 1 to visitor and 2 if different
@@ -40,6 +45,14 @@ public class GoalRecord {
 
     public int getTeam() {
         return team;
+    }
+
+    public int getGamePk() {
+        return gamePk;
+    }
+
+    public void setGamePk(int gamePk) {
+        this.gamePk = gamePk;
     }
 
     public void setTeam(int team) {

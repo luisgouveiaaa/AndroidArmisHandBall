@@ -55,10 +55,6 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String credentials(){
-        return getUsername() + ":" + password;
-    }
-
     /*public boolean hasRole(String role){
         for(String r : roles){
             if(r.equalsIgnoreCase(role)){
